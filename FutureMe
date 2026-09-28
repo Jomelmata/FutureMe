@@ -1,311 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Future Letter</title>
+  <title>Future Letter</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f7f4ee;
-            color: #333;
-        }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f4ee;
+      color: #333;
+      line-height: 1.6;
+    }
 
-        header {
-            background: white;
-            padding: 20px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #ddd;
-        }
+    /* NAVIGATION */
+    nav {
+      width: 100%;
+      padding: 22px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-bottom: 1px solid #eee;
+    }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #3d4b3d;
-        }
+    .logo {
+      font-size: 27px;
+      font-weight: bold;
+      color: #222;
+    }
 
-        nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #555;
-        }
+    .logo span {
+      color: #e86f51;
+    }
 
-        .hero {
-            text-align: center;
-            padding: 60px 20px 30px;
-        }
+    nav a {
+      text-decoration: none;
+      color: #555;
+      margin-left: 25px;
+      font-size: 14px;
+    }
 
-        .hero h1 {
-            font-size: 42px;
-            color: #354936;
-            margin-bottom: 15px;
-        }
+    nav a:hover {
+      color: #e86f51;
+    }
 
-        .hero p {
-            font-size: 18px;
-            color: #666;
-        }
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 70px 20px 35px;
+    }
 
-        .container {
-            max-width: 850px;
-            margin: 30px auto 70px;
-            padding: 0 20px;
-        }
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: 48px;
+      font-weight: normal;
+      margin-bottom: 15px;
+      color: #292929;
+    }
 
-        .card {
-            background: white;
-            padding: 35px;
-            border-radius: 18px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-        }
+    .hero p {
+      color: #777;
+      font-size: 18px;
+    }
 
-        label {
-            display: block;
-            margin: 18px 0 8px;
-            font-weight: bold;
-        }
+    /* MAIN */
+    .container {
+      max-width: 1000px;
+      margin: 20px auto 80px;
+      padding: 0 20px;
+    }
 
-        textarea {
-            width: 100%;
-            height: 300px;
-            padding: 18px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 16px;
-            resize: vertical;
-            font-family: Georgia, serif;
-        }
+    .letter-card {
+      background: white;
+      border-radius: 12px;
+      padding: 35px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    }
 
-        input, select {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
-        }
+    .letter-card h2 {
+      font-family: Georgia, serif;
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
 
-        .row {
-            display: flex;
-            gap: 15px;
-        }
+    textarea {
+      width: 100%;
+      min-height: 280px;
+      resize: vertical;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 18px;
+      font-family: Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      outline: none;
+    }
 
-        .row > div {
-            flex: 1;
-        }
+    textarea:focus,
+    input:focus,
+    select:focus {
+      border-color: #e86f51;
+    }
 
-        .word-count {
-            text-align: right;
-            color: #777;
-            margin-top: 6px;
-            font-size: 14px;
-        }
+    .inspire {
+      margin-top: 10px;
+      border: none;
+      background: none;
+      color: #e86f51;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-        button {
-            width: 100%;
-            margin-top: 30px;
-            padding: 15px;
-            border: none;
-            border-radius: 30px;
-            background: #536b4f;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    /* OPTIONS */
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-top: 30px;
+    }
 
-        button:hover {
-            background: #3f553c;
-        }
+    .option-box {
+      background: #fafafa;
+      border: 1px solid #e4e4e4;
+      border-radius: 8px;
+      padding: 20px;
+    }
 
-        .features {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 50px;
-            text-align: center;
-        }
+    .option-box h3 {
+      font-size: 15px;
+      margin-bottom: 12px;
+      color: #555;
+    }
 
-        .feature {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            width: 220px;
-        }
+    select,
+    input[type="email"],
+    input[type="date"] {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: white;
+      font-size: 15px;
+      outline: none;
+    }
 
-        .feature h3 {
-            margin-bottom: 10px;
-            color: #354936;
-        }
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #354936;
-            color: white;
-        }
+    .radio-group label {
+      font-size: 14px;
+      cursor: pointer;
+    }
 
-        @media (max-width: 650px) {
-            .row {
-                flex-direction: column;
-            }
+    .email-section {
+      margin-top: 25px;
+    }
 
-            .features {
-                flex-direction: column;
-                align-items: center;
-            }
+    .email-section label {
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
 
-            .hero h1 {
-                font-size: 32px;
-            }
+    /* BUTTON */
+    .send-button {
+      display: block;
+      width: 100%;
+      margin-top: 30px;
+      padding: 16px;
+      border: none;
+      border-radius: 7px;
+      background: #e86f51;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-            header {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-    </style>
+    .send-button:hover {
+      background: #d95d40;
+      transform: translateY(-1px);
+    }
+
+    /* FEATURES */
+    .features {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .features h2 {
+      font-family: Georgia, serif;
+      font-size: 30px;
+      margin-bottom: 30px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .feature {
+      background: white;
+      padding: 25px 15px;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    }
+
+    .feature .icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #292929;
+      color: #ccc;
+      text-align: center;
+      padding: 35px 20px;
+      margin-top: 70px;
+    }
+
+    footer .footer-logo {
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 700px) {
+
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav a {
+        margin: 0 8px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .options {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .letter-card {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-    <div class="logo">Future Letter ✉</div>
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">future<span>letter</span></div>
 
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-    </nav>
-</header>
+    <div>
+      <a href="#">Write a Letter</a>
+      <a href="#">Read Letters</a>
+      <a href="#">Sign In</a>
+    </div>
+  </nav>
 
-<section class="hero">
-    <h1>Write to Your Future Self</h1>
-    <p>Write today. Choose a future date. Read it later.</p>
-</section>
 
-<div class="container">
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Write a letter to your future self</h1>
 
-    <div class="card">
+    <p>
+      Write. Pick a date. Send. Let your future self discover it.
+    </p>
+  </section>
 
-        <label for="letter">Dear Future Me,</label>
 
-        <textarea
-            id="letter"
-            placeholder="Write a message to your future self..."
-            oninput="updateCount()"></textarea>
+  <!-- LETTER FORM -->
+  <main class="container">
 
-        <div class="word-count">
-            <span id="count">0</span> words
+    <div class="letter-card">
+
+      <h2>Your Future Letter</h2>
+
+      <textarea id="letter">Dear FutureMe,
+
+I hope you are doing well. I am writing this letter to remind you of who you are today, your dreams, your goals, and the things that matter to you.
+
+I hope you never stop believing in yourself.
+
+Sincerely,
+Your Past Self</textarea>
+
+      <button class="inspire" onclick="inspireMe()">
+        ✨ Inspire me!
+      </button>
+
+
+      <!-- OPTIONS -->
+      <div class="options">
+
+        <div class="option-box">
+
+          <h3>DELIVER IN</h3>
+
+          <select id="duration">
+            <option value="6 months">6 months</option>
+            <option value="1 year">1 year</option>
+            <option value="3 years">3 years</option>
+            <option value="5 years">5 years</option>
+            <option value="10 years">10 years</option>
+          </select>
+
         </div>
 
-        <div class="row">
 
-            <div>
-                <label for="date">Deliver on</label>
-                <input type="date" id="date">
-            </div>
+        <div class="option-box">
 
-            <div>
-                <label for="audience">Audience</label>
-                <select id="audience">
-                    <option>Private</option>
-                    <option>Public but Anonymous</option>
-                </select>
-            </div>
+          <h3>OR CHOOSE A DATE</h3>
+
+          <input type="date" id="date">
 
         </div>
 
-        <label for="email">Your Email</label>
+
+        <div class="option-box">
+
+          <h3>SELECT YOUR AUDIENCE</h3>
+
+          <div class="radio-group">
+
+            <label>
+              <input type="radio" name="audience" checked>
+              Private
+            </label>
+
+            <label>
+              <input type="radio" name="audience">
+              Public, but anonymous
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <div class="option-box">
+
+          <h3>WORD COUNT</h3>
+
+          <p id="wordCount">0 words</p>
+
+        </div>
+
+      </div>
+
+
+      <!-- EMAIL -->
+      <div class="email-section">
+
+        <label for="email">
+          MAKE SURE YOU GET YOUR LETTER
+        </label>
+
         <input
-            type="email"
-            id="email"
-            placeholder="Enter your email">
+          type="email"
+          id="email"
+          placeholder="Please enter your email"
+        >
 
-        <button onclick="sendLetter()">
-            Send to the Future 🚀
-        </button>
+      </div>
 
-    </div>
 
-    <div class="features">
-
-        <div class="feature">
-            <h3>📝 Write</h3>
-            <p>Record your thoughts, dreams and goals.</p>
-        </div>
-
-        <div class="feature">
-            <h3>📅 Choose</h3>
-            <p>Select when you want to receive your letter.</p>
-        </div>
-
-        <div class="feature">
-            <h3>💌 Remember</h3>
-            <p>Look back and see how you've grown.</p>
-        </div>
+      <!-- SEND -->
+      <button class="send-button" onclick="sendLetter()">
+        Send to the Future 🚀
+      </button>
 
     </div>
 
-</div>
 
-<footer>
-    <p>Future Letter Demo © 2026</p>
-</footer>
+    <!-- FEATURES -->
+    <section class="features">
 
-<script>
+      <h2>Future letters are great for…</h2>
 
-function updateCount() {
+      <div class="feature-grid">
 
-    const text = document.getElementById("letter").value.trim();
+        <div class="feature">
+          <div class="icon">❤️</div>
+          <p>Reliving memories in vivid detail</p>
+        </div>
 
-    if (text === "") {
-        document.getElementById("count").textContent = "0";
-        return;
+        <div class="feature">
+          <div class="icon">📈</div>
+          <p>Acknowledging your growth and achievements</p>
+        </div>
+
+        <div class="feature">
+          <div class="icon">✅</div>
+          <p>Setting goals for your future</p>
+        </div>
+
+        <div class="feature">
+          <div class="icon">😌</div>
+          <p>Clearing your mind and reflecting</p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-logo">futureletter</div>
+
+    <p>
+      A simple demo inspired by future-letter websites.
+    </p>
+
+    <p>
+      © 2026 Future Letter Demo
+    </p>
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    const letter = document.getElementById("letter");
+    const wordCount = document.getElementById("wordCount");
+
+    function updateWordCount() {
+
+      const words = letter.value
+        .trim()
+        .split(/\s+/)
+        .filter(word => word.length > 0);
+
+      wordCount.textContent = words.length + " words";
     }
 
-    const words = text.split(/\s+/).length;
+    letter.addEventListener("input", updateWordCount);
 
-    document.getElementById("count").textContent = words;
-}
+    updateWordCount();
 
 
-function sendLetter() {
+    function inspireMe() {
 
-    const letter = document.getElementById("letter").value;
-    const date = document.getElementById("date").value;
-    const email = document.getElementById("email").value;
+      const ideas = [
+        "What do you hope your future self has accomplished?",
+        "What is your biggest dream right now?",
+        "What are you grateful for today?",
+        "What advice would you give your future self?",
+        "Where do you hope to be in five years?"
+      ];
 
-    if (letter.trim() === "") {
-        alert("Please write your letter first.");
-        return;
+      const random =
+        ideas[Math.floor(Math.random() * ideas.length)];
+
+      letter.value += "\n\n" + random + "\n";
+
+      updateWordCount();
     }
 
-    if (date === "") {
-        alert("Please choose a delivery date.");
-        return;
-    }
 
-    if (email === "") {
+    function sendLetter() {
+
+      const email =
+        document.getElementById("email").value;
+
+      const message =
+        letter.value.trim();
+
+      if (message.length === 0) {
+        alert("Please write a letter first.");
+        return;
+      }
+
+      if (email.length === 0) {
         alert("Please enter your email.");
         return;
+      }
+
+      alert(
+        "Demo only! Your letter has been prepared for the future. 🚀"
+      );
     }
 
-    alert(
-        "Your future letter has been prepared!\\n\\n" +
-        "Delivery date: " + date
-    );
-}
-
-</script>
+  </script>
 
 </body>
 </html>
