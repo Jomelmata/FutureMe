@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Me | 2030</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        color: white;
+        background: linear-gradient(135deg, #09001f, #18005c, #3b087d);
+        overflow-x: hidden;
+    }
+
+    /* Stars */
+    .stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+        from {
+            opacity: 0.2;
+            transform: scale(0.7);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1.4);
+        }
+    }
+
+    .container {
+        position: relative;
+        z-index: 1;
+        width: 90%;
+        max-width: 900px;
+        margin: auto;
+        padding: 50px 0;
+    }
+
+    .hero {
+        text-align: center;
+        padding: 30px 10px;
+    }
+
+    .hero h1 {
+        font-size: clamp(45px, 8vw, 80px);
+        background: linear-gradient(90deg, #fff, #b9a5ff, #fff);
+        -webkit-background-clip: text;
+        color: transparent;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        color: #d8d0ff;
+        font-size: 18px;
+    }
+
+    .glass {
+        background: rgba(255,255,255,0.09);
+        border: 1px solid rgba(255,255,255,0.2);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 25px;
+        padding: 30px;
+        margin-top: 25px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .countdown-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .countdown {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+
+    .time-box {
+        text-align: center;
+        padding: 20px 10px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 18px;
+    }
+
+    .time-box span {
+        display: block;
+        font-size: 38px;
+        font-weight: bold;
+    }
+
+    .time-box small {
+        color: #cfc6ff;
+    }
+
+    .letter {
+        text-align: center;
+    }
+
+    .letter h2 {
+        font-size: 30px;
+        margin-bottom: 15px;
+    }
+
+    .letter-icon {
+        font-size: 60px;
+        margin-bottom: 10px;
+    }
+
+    .input-group {
+        margin-top: 18px;
+        text-align: left;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 7px;
+        font-weight: bold;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 12px;
+        background: rgba(0,0,0,0.2);
+        color: white;
+        outline: none;
+        font-size: 15px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #bdb5dd;
+    }
+
+    textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 20px;
+        padding: 15px;
+        border: none;
+        border-radius: 15px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        background: linear-gradient(90deg, #8d5cff, #c56cff);
+        color: white;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(180,100,255,0.4);
+    }
+
+    #letterOutput {
+        display: none;
+        margin-top: 25px;
+        padding: 25px;
+        background: rgba(0,0,0,0.2);
+        border-radius: 18px;
+        line-height: 1.8;
+    }
+
+    #letterOutput h3 {
+        color: #d0b8ff;
+        margin-bottom: 10px;
+    }
+
+    .quote {
+        margin-top: 20px;
+        text-align: center;
+        font-style: italic;
+        color: #d7ceff;
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px;
+        color: #aaa1d1;
+        font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+        .countdown {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .glass {
+            padding: 20px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+    <section class="hero">
+        <h1>Future Me</h1>
+        <p>A letter from who I am today, to who I will become.</p>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <div class="glass">
+
+        <div class="countdown-title">
+            ⏳ Open My Letter in 2030
+        </div>
+
+        <div class="countdown">
+
+            <div class="time-box">
+                <span id="days">0</span>
+                <small>Days</small>
+            </div>
+
+            <div class="time-box">
+                <span id="hours">0</span>
+                <small>Hours</small>
+            </div>
+
+            <div class="time-box">
+                <span id="minutes">0</span>
+                <small>Minutes</small>
+            </div>
+
+            <div class="time-box">
+                <span id="seconds">0</span>
+                <small>Seconds</small>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- LETTER -->
+    <div class="glass letter">
+
+        <div class="letter-icon">💌</div>
+
+        <h2>My Letter to Future Me</h2>
+
+        <p>
+            Write something today that your future self
+            will be proud to read.
+        </p>
+
+        <div class="input-group">
+            <label>Your Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+        </div>
+
+        <div class="input-group">
+            <label>My Dream in 2030</label>
+            <input type="text" id="dream" placeholder="What do you want to achieve?">
+        </div>
+
+        <div class="input-group">
+            <label>My Message to Future Me</label>
+            <textarea id="message"
+                placeholder="Dear Future Me..."></textarea>
+        </div>
+
+        <button class="btn" onclick="saveLetter()">
+            🔐 Seal My Letter
+        </button>
+
+        <div id="letterOutput">
+
+            <h3>💜 Your Future Letter</h3>
+
+            <p>
+                Dear <strong id="outputName"></strong>,
+            </p>
+
+            <p>
+                Today, I dreamed of becoming:
+                <strong id="outputDream"></strong>.
+            </p>
+
+            <p id="outputMessage"></p>
+
+            <p class="quote">
+                “Keep going. Your future self is waiting for you.”
+            </p>
+
+        </div>
+
+    </div>
+
+    <footer>
+        © 2026 Future Me • Written today, opened in the future ✨
+    </footer>
+
+</div>
+
+
+<script>
+
+/* CREATE STARS */
+
+const stars = document.getElementById("stars");
+
+for (let i = 0; i < 100; i++) {
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+
+    star.style.animationDelay =
+        Math.random() * 2 + "s";
+
+    stars.appendChild(star);
+}
+
+
+/* COUNTDOWN TO 2030 */
+
+const targetDate =
+    new Date("January 1, 2030 00:00:00").getTime();
+
+
+function updateCountdown() {
+
+    const now = new Date().getTime();
+
+    const distance = targetDate - now;
+
+
+    if (distance <= 0) {
+
+        document.getElementById("days").innerText = "0";
+        document.getElementById("hours").innerText = "0";
+        document.getElementById("minutes").innerText = "0";
+        document.getElementById("seconds").innerText = "0";
+
+        document.querySelector(".countdown-title")
+            .innerText = "🎉 Your Future Has Arrived!";
+
+        return;
+    }
+
+
+    const days =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
+
+    const hours =
+        Math.floor(
+            (distance % (1000 * 60 * 60 * 24))
+            / (1000 * 60 * 60)
+        );
+
+    const minutes =
+        Math.floor(
+            (distance % (1000 * 60 * 60))
+            / (1000 * 60)
+        );
+
+    const seconds =
+        Math.floor(
+            (distance % (1000 * 60))
+            / 1000
+        );
+
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
+}
+
+
+setInterval(updateCountdown, 1000);
+
+updateCountdown();
+
+
+/* SAVE LETTER */
+
+function saveLetter() {
+
+    const name =
+        document.getElementById("name").value;
+
+    const dream =
+        document.getElementById("dream").value;
+
+    const message =
+        document.getElementById("message").value;
+
+
+    if (!name || !dream || !message) {
+
+        alert("Please complete your letter first.");
+
+        return;
+    }
+
+
+    document.getElementById("outputName")
+        .innerText = name;
+
+    document.getElementById("outputDream")
+        .innerText = dream;
+
+    document.getElementById("outputMessage")
+        .innerText = message;
+
+
+    document.getElementById("letterOutput")
+        .style.display = "block";
+
+
+    localStorage.setItem(
+        "futureName",
+        name
+    );
+
+    localStorage.setItem(
+        "futureDream",
+        dream
+    );
+
+    localStorage.setItem(
+        "futureMessage",
+        message
+    );
+}
+
+
+/* LOAD SAVED LETTER */
+
+window.onload = function() {
+
+    const name =
+        localStorage.getItem("futureName");
+
+    const dream =
+        localStorage.getItem("futureDream");
+
+    const message =
+        localStorage.getItem("futureMessage");
+
+
+    if (name) {
+        document.getElementById("name").value = name;
+    }
+
+    if (dream) {
+        document.getElementById("dream").value = dream;
+    }
+
+    if (message) {
+        document.getElementById("message").value = message;
+    }
+};
+
+</script>
+
+</body>
+</html>
