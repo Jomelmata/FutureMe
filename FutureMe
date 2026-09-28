@@ -1,1 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Future Letter</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f4ee;
+            color: #333;
+        }
+
+        header {
+            background: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3d4b3d;
+        }
+
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #555;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            color: #354936;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto 70px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 18px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: vertical;
+            font-family: Georgia, serif;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .row > div {
+            flex: 1;
+        }
+
+        .word-count {
+            text-align: right;
+            color: #777;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 30px;
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            background: #536b4f;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #3f553c;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .feature {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            width: 220px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+            color: #354936;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #354936;
+            color: white;
+        }
+
+        @media (max-width: 650px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Future Letter ✉</div>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Write to Your Future Self</h1>
+    <p>Write today. Choose a future date. Read it later.</p>
+</section>
+
+<div class="container">
+
+    <div class="card">
+
+        <label for="letter">Dear Future Me,</label>
+
+        <textarea
+            id="letter"
+            placeholder="Write a message to your future self..."
+            oninput="updateCount()"></textarea>
+
+        <div class="word-count">
+            <span id="count">0</span> words
+        </div>
+
+        <div class="row">
+
+            <div>
+                <label for="date">Deliver on</label>
+                <input type="date" id="date">
+            </div>
+
+            <div>
+                <label for="audience">Audience</label>
+                <select id="audience">
+                    <option>Private</option>
+                    <option>Public but Anonymous</option>
+                </select>
+            </div>
+
+        </div>
+
+        <label for="email">Your Email</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email">
+
+        <button onclick="sendLetter()">
+            Send to the Future 🚀
+        </button>
+
+    </div>
+
+    <div class="features">
+
+        <div class="feature">
+            <h3>📝 Write</h3>
+            <p>Record your thoughts, dreams and goals.</p>
+        </div>
+
+        <div class="feature">
+            <h3>📅 Choose</h3>
+            <p>Select when you want to receive your letter.</p>
+        </div>
+
+        <div class="feature">
+            <h3>💌 Remember</h3>
+            <p>Look back and see how you've grown.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>Future Letter Demo © 2026</p>
+</footer>
+
+<script>
+
+function updateCount() {
+
+    const text = document.getElementById("letter").value.trim();
+
+    if (text === "") {
+        document.getElementById("count").textContent = "0";
+        return;
+    }
+
+    const words = text.split(/\s+/).length;
+
+    document.getElementById("count").textContent = words;
+}
+
+
+function sendLetter() {
+
+    const letter = document.getElementById("letter").value;
+    const date = document.getElementById("date").value;
+    const email = document.getElementById("email").value;
+
+    if (letter.trim() === "") {
+        alert("Please write your letter first.");
+        return;
+    }
+
+    if (date === "") {
+        alert("Please choose a delivery date.");
+        return;
+    }
+
+    if (email === "") {
+        alert("Please enter your email.");
+        return;
+    }
+
+    alert(
+        "Your future letter has been prepared!\\n\\n" +
+        "Delivery date: " + date
+    );
+}
+
+</script>
+
+</body>
+</html>
